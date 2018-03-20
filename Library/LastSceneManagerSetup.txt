@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test Scene.unity
+- path: Assets/Andrew Test Mingemu/TestMinigame.unity
   isLoaded: 1
   isActive: 1

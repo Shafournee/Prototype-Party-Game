@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
     
-    [SerializeField] float time;
+    public float time;
     //Change this bool to true once you want to start the timer
     public bool startTimer = true;
     public Text timerUI;

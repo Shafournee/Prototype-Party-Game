@@ -23,7 +23,7 @@ public class FireGenerator : MonoBehaviour {
 	IEnumerator GenerateFireballs() {
 		while(true) {
 			GameObject ball = Instantiate(FireBall);
-			float x = transform.position.x + 20;
+			float x = transform.position.x;
 			float y;
 			if(Random.value > 0.5f) {
 				y = transform.position.y - 5.5f;

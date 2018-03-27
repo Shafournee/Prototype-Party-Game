@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fire_CameraMovement : MonoBehaviour {
 
-	[SerializeField] float Speed = 0;
+	//[SerializeField] float Speed = 0;
 
 	[SerializeField] GameObject[] Players;
 
@@ -15,17 +15,22 @@ public class Fire_CameraMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		CalculateCameraLocations();
 	}
 
 	// 
 	void CalculateCameraLocations() {
 		Vector3 average = Vector3.zero;
+		int length = 0;
 		for(int i = 0; i < Players.Length; i++) {
-			average += Players[i].transform.position;
+			if(Players[i] != null) {
+				average += Players[i].transform.position;
+				length++;
+			}
 		}
-		average /= Players.Length;
-
-
+		if(length != 0){
+			average /= length;
+			transform.position = new Vector3(average.x, transform.position.y, transform.position.z);
+		}
 	}
 }

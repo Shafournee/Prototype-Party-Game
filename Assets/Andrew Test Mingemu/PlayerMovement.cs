@@ -26,8 +26,13 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float JumpingForce;
 	[SerializeField] float RunningTopSpeed;
 
-	[SerializeField] PlayerEdgeDetector FloorDetector;
+	// Detectors
+	public PlayerEdgeDetector FloorDetector;
 
+	// Inputs
+	[SerializeField] KeyCode Left = KeyCode.A;
+	[SerializeField] KeyCode Right = KeyCode.D;
+	[SerializeField] KeyCode Jump = KeyCode.Space;
 
 	// ------------------------------------------ Methods ------------------------------------------ //
 	//  --------- Start ---------  //
@@ -71,7 +76,7 @@ public class PlayerMovement : MonoBehaviour {
 	//  --------- State Functions ---------  //
 	void JumpingHandler() {
 		// Initial Jump
-		if(Input.GetKeyDown(KeyCode.Space) && FloorDetector.isTouching) {
+		if(Input.GetKeyDown(Jump) && FloorDetector.isTouching) {
 			rb.AddForce(Vector2.up * JumpingForce, ForceMode2D.Impulse);
 			canStopJump = true;
 		}
@@ -80,16 +85,16 @@ public class PlayerMovement : MonoBehaviour {
 	void JumpStifleHandler() {
 		// If the player is in the air, moving up, but is not holding space, immediately set the y velocity to zero.
 		// This can only happen a few frames after the initial jump.
-		if(!FloorDetector.isTouching && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canStopJump) {
+		if(!FloorDetector.isTouching && rb.velocity.y > 0 && !Input.GetKey(Jump) && canStopJump) {
 			rb.velocity = new Vector2(rb.velocity.x, 0f);
 		}
 	}
 
 	void GroundMovement() {
 		// Magnitude of the running force decreases as we approach top speed, going to 0 if we're at top speed.
-		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
+		if(Input.GetKey(Left) || Input.GetKey(Right)) {
 			Vector2 force;
-			if(Input.GetKey(KeyCode.A)) { force = Vector2.left * RunningForce; } 
+			if(Input.GetKey(Left)) { force = Vector2.left * RunningForce; } 
 			else { force = Vector2.right * RunningForce; }
 			// Decrease the magnitude of the force based on current velocity (only if the input is along with the movement direction)
 			bool inputInDirectionOfMotion = Mathf.Sign(force.x) == Mathf.Sign(rb.velocity.x);

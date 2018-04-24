@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Pushy Penguins.unity
+- path: Assets/Andrew Test Mingemu/TestMinigame.unity
   isLoaded: 1
   isActive: 1

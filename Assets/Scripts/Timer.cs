@@ -38,7 +38,14 @@ public class Timer : MonoBehaviour {
         }
         else
         {
-            timerUI.text = time.ToString();
+            timerUI.text = time.ToString("0");
+        }
+
+        //Stop the timer if it's less than zero
+        if(time <= 0)
+        {
+            startTimer = false;
+            time = 0f;
         }
     }
 

@@ -8,6 +8,14 @@ public class PushySpawner : MonoBehaviour {
     //Keeps track of how many times it has looped so far
     //(Will be used for making the waves more difficult as time goes on)
     int loop = 0;
+    //Used for determining how fast things spawn
+    float spawnTimer = 2.0f;
+
+    //Used for increasing number of penguin spawns
+    float spawnerDifficulty = 0f;
+
+    //Determines the minimum number of enemies that can spawn
+    int spawnMinimum = 1;
     //The vector that holds the spawn locations for enemies
     List<Vector2> spawnLocation;
 
@@ -18,7 +26,7 @@ public class PushySpawner : MonoBehaviour {
         //Repopulate the spawn list
         PopulateSpawnList();
 
-        InvokeRepeating("Spawner", 2.0f, 1.0f);
+        InvokeRepeating("Spawner", spawnTimer, 1.0f);
     }
 	
 	// Update is called once per frame
@@ -28,6 +36,18 @@ public class PushySpawner : MonoBehaviour {
 
     private void PopulateSpawnList()
     {
+        //This will go up at the same time that the timer does so you can impliment timing points where things get harder
+        spawnerDifficulty += spawnTimer;
+
+        if (spawnerDifficulty >= 10)
+        {
+            spawnMinimum = 3;
+        }
+        else if (spawnerDifficulty >= 20)
+        {
+            spawnMinimum = 5;
+        }
+
         //Empty the spawn list
         spawnLocation.Clear();
         //Repopulate the list
@@ -43,10 +63,19 @@ public class PushySpawner : MonoBehaviour {
     private void Spawner()
     {
         //Choose a number of locations equal to one less the size of the list
-        int chooseNumberOfEnemiesToSpawn = Random.Range(0, spawnLocation.Count);
+        int chooseNumberOfEnemiesToSpawn = Random.Range(3, spawnLocation.Count);
         for (int i = 0; i < chooseNumberOfEnemiesToSpawn; i++)
         {
-            
+            //Choose a random slot to spawn an enemy
+            int chooseIndex = Random.Range(0, spawnLocation.Count);
+            Vector3 spawningObjectLocation = spawnLocation[chooseIndex];
+            GameObject newPenguin;
+
+            //Instantiate a penguin in that location
+            newPenguin = Instantiate(penguin, spawningObjectLocation, transform.rotation);
+            //Remove the location
+            spawnLocation.RemoveAt(chooseIndex);
+
         }
 
         //Repopulate the spawn list

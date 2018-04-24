@@ -17,8 +17,8 @@ TagManager:
   - 
   - AI
   - Ignore AI
-  - 
-  - 
+  - Player
+  - Pickup
   - 
   - 
   - 
@@ -42,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 1332139767
+    locked: 0
+  - name: actors
+    uniqueID: 1422397477
+    locked: 0
+  - name: effects
+    uniqueID: 732485065
     locked: 0

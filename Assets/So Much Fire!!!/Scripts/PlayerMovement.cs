@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		// Lets you bounce off of player's heads.
 		else if(!FloorDetector.isTouching && rb.velocity.y < 0 && FloorDetector.isTouchingPlayer && !FloorDetector.PlayerTouching.squished) {
+			rb.velocity = new Vector2(rb.velocity.x, 0f);
 			rb.AddForce(Vector2.up * JumpingForce, ForceMode2D.Impulse);
 			canStopJump = false;
 			FloorDetector.PlayerTouching.Squish();
@@ -138,10 +139,12 @@ public class PlayerMovement : MonoBehaviour {
 		squished = true;
 		RunningForce /= 2f;
 		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2f, transform.localScale.z);
+		transform.position = new Vector3(transform.position.x, transform.position.y - transform.GetComponent<SpriteRenderer>().bounds.extents.y, transform.position.z);
 		StartCoroutine(squish_helper());
 	}
 	public IEnumerator squish_helper() {
 		yield return new WaitForSeconds(3f);
+		transform.position = new Vector3(transform.position.x, transform.position.y + transform.GetComponent<SpriteRenderer>().bounds.extents.y, transform.position.z);
 		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
 		RunningForce *= 2f;
 		squished = false;

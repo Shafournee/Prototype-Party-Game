@@ -7,8 +7,12 @@ using UnityEngine;
 // Script attached to colliders placed on the edges of the player, to notify the player GO if a side is touching the ground/wall.
 public class PlayerEdgeDetector : MonoBehaviour {
 	// ----------------------------------- Fields and Properties ----------------------------------- //
-	// Is this edge collider touching anything?
+	// Is this edge collider touching the ground?
 	public bool isTouching { get; private set; }
+
+	// Is this edge collider touching a player?
+	public bool isTouchingPlayer { get; private set; }
+	public PlayerMovement PlayerTouching { get; private set; }
 
 	//  --------- Serialized Fields: Set in Inspector ---------  //
 
@@ -22,12 +26,20 @@ public class PlayerEdgeDetector : MonoBehaviour {
 		if(collision.gameObject.tag == "Ground") {
 			isTouching = true;
 		}
+		if(collision.gameObject.tag == "Player"){
+			isTouchingPlayer = true;
+			PlayerTouching = collision.gameObject.GetComponent<PlayerMovement>();
+		}
 	}
 
 	//  --------- OnCollisionExit ---------  //
 	void OnCollisionExit2D(Collision2D collision) {
 		if(collision.gameObject.tag == "Ground") {
 			isTouching = false;
+		}
+		if(collision.gameObject.tag == "Player"){
+			isTouchingPlayer = false;
+			PlayerTouching = null;
 		}
 	}
 }

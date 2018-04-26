@@ -5,9 +5,20 @@ using UnityEngine.UI;
 
 public class FireGenerator : MonoBehaviour {
 
-	[SerializeField] GameObject FireBall;
+	// Fireball Prefab.
+	[SerializeField] GameObject FireBallPrefab;
 
-	Text myObject;
+	// Possible spawn locations
+	[SerializeField] GameObject[] SpawnLocations;
+
+	// Delay for when the generator should start spawning fireballs.
+	[SerializeField] float Delay;
+
+	// How long between each spawn.
+	[SerializeField] float Interval;
+
+	// Speed of fireballs.
+	const float FireballSpeed = 4;
 
 	// Use this for initialization
 	void Start () {
@@ -21,18 +32,13 @@ public class FireGenerator : MonoBehaviour {
 
 
 	IEnumerator GenerateFireballs() {
+		if(Delay != 0) yield return new WaitForSeconds(Delay);
 		while(true) {
-			GameObject ball = Instantiate(FireBall);
-			float x = transform.position.x;
-			float y;
-			if(Random.value > 0.5f) {
-				y = transform.position.y - 5.5f;
-			} else {
-				y = transform.position.y - 1;
-			}
-			ball.transform.position = new Vector3(x, y);
-			ball.GetComponent<FireBall>().Speed = -4;
-			yield return new WaitForSeconds(2f);
+			GameObject ball = Instantiate(FireBallPrefab);
+			GameObject location = SpawnLocations[Random.Range(0, SpawnLocations.Length)];
+			ball.transform.position = new Vector3(location.transform.position.x, location.transform.position.y);
+			ball.GetComponent<Rigidbody2D>().velocity = new Vector2(-FireballSpeed, 0);
+			yield return new WaitForSeconds(Interval);
 		}
 	}
 }

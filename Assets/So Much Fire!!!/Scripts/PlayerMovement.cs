@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour {
 	// The player can't stop their y velocity unless they actually jumped themselves first
 	bool canStopJump = false;
 
+	// Is this player squished?
+	public bool squished { get; private set; }
+
 	// --------- Other Movement --------- //
 	// The force applied for left and right movement.
 	Vector2 ForceToApply = Vector2.zero;
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
 	//  --------- Start ---------  //
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
+		squished = false;
 	}
 	
 	//  --------- Update ---------  //
@@ -54,17 +58,6 @@ public class PlayerMovement : MonoBehaviour {
 		GroundMovement();
 	}
 
-	//  --------- Umbrella Movement State ---------  //
-	void UmbrellaMovement() {
-		canStopJump = false;
-		// --- Jumping --- //
-		JumpingHandler();
-		JumpStifleHandler();
-		// --- Left and Right Movement --- //
-		GroundMovement();
-	}
-
-
 	//  --------- FixedUpdate ---------  //
 	void FixedUpdate() {
 		// Applies the Left and Right
@@ -79,6 +72,13 @@ public class PlayerMovement : MonoBehaviour {
 		if(Input.GetKeyDown(Jump) && FloorDetector.isTouching) {
 			rb.AddForce(Vector2.up * JumpingForce, ForceMode2D.Impulse);
 			canStopJump = true;
+		}
+
+		// Lets you bounce off of player's heads.
+		else if(!FloorDetector.isTouching && FloorDetector.isTouchingPlayer && !FloorDetector.PlayerTouching.squished) {
+			rb.AddForce(Vector2.up * JumpingForce, ForceMode2D.Impulse);
+			canStopJump = false;
+			FloorDetector.PlayerTouching.Squish();
 		}
 	}
 
@@ -131,6 +131,20 @@ public class PlayerMovement : MonoBehaviour {
 		while(!FloorDetector.isTouching) {
 			yield return null;
 		}
+	}
+
+	// Squished this player. Called when another player steps on you.
+	public void Squish() {
+		squished = true;
+		RunningForce /= 2f;
+		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2f, transform.localScale.z);
+		StartCoroutine(squish_helper());
+	}
+	public IEnumerator squish_helper() {
+		yield return new WaitForSeconds(3f);
+		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
+		RunningForce *= 2f;
+		squished = false;
 	}
 
 

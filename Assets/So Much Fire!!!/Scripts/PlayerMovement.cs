@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		// Lets you bounce off of player's heads.
-		else if(!FloorDetector.isTouching && FloorDetector.isTouchingPlayer && !FloorDetector.PlayerTouching.squished) {
+		else if(!FloorDetector.isTouching && rb.velocity.y < 0 && FloorDetector.isTouchingPlayer && !FloorDetector.PlayerTouching.squished) {
 			rb.AddForce(Vector2.up * JumpingForce, ForceMode2D.Impulse);
 			canStopJump = false;
 			FloorDetector.PlayerTouching.Squish();

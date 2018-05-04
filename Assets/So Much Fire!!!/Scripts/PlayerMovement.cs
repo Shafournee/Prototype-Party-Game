@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		squished = false;
+		StartCoroutine(HoldingS());
 	}
 	
 	//  --------- Update ---------  //
@@ -116,8 +117,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-
-
 	//  --------- Public Functions ---------  //
 	// Returns true if the player is on the ground
 	public bool OnGround(){
@@ -148,6 +147,29 @@ public class PlayerMovement : MonoBehaviour {
 		transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2f, transform.localScale.z);
 		RunningForce *= 2f;
 		squished = false;
+	}
+
+
+	// When the player holds S for some amount of time and they're on a platform, they fall through it.
+	IEnumerator HoldingS() {
+		while(true) {
+			float time = 0;
+			while(Input.GetKey(KeyCode.S) && FloorDetector.isTouchingPlatform && time < 0.5f) {
+				yield return null;
+				time += Time.deltaTime;
+			}
+			if(Input.GetKey(KeyCode.S) && FloorDetector.isTouchingPlatform) {
+				Collider2D platform = FloorDetector.Platform;
+				Collider2D thisPlayer = GetComponent<Collider2D>();
+				Physics2D.IgnoreCollision(thisPlayer, platform);
+				Physics2D.IgnoreCollision(FloorDetector.gameObject.GetComponent<BoxCollider2D>(), platform);
+				yield return new WaitForSeconds(0.3f);
+				Physics2D.IgnoreCollision(thisPlayer, platform, false);
+				Physics2D.IgnoreCollision(FloorDetector.gameObject.GetComponent<BoxCollider2D>(), platform, false);
+			}
+			time = 0;
+			yield return null;
+		}
 	}
 
 

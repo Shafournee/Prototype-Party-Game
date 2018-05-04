@@ -14,6 +14,10 @@ public class PlayerEdgeDetector : MonoBehaviour {
 	public bool isTouchingPlayer { get; private set; }
 	public PlayerMovement PlayerTouching { get; private set; }
 
+	// Is this edge collider touching a platform they can fall through?
+	public bool isTouchingPlatform { get; private set; }
+	public Collider2D Platform;
+
 	//  --------- Serialized Fields: Set in Inspector ---------  //
 
 	// The direction that this edge collider lies on.
@@ -30,6 +34,10 @@ public class PlayerEdgeDetector : MonoBehaviour {
 			isTouchingPlayer = true;
 			PlayerTouching = collision.gameObject.GetComponent<PlayerMovement>();
 		}
+		if(collision.gameObject.GetComponent<PlatformEffector2D>() != null) {
+			isTouchingPlatform = true;
+			Platform = collision.gameObject.GetComponent<Collider2D>();
+		}
 	}
 
 	//  --------- OnCollisionExit ---------  //
@@ -40,6 +48,10 @@ public class PlayerEdgeDetector : MonoBehaviour {
 		if(collision.gameObject.tag == "Player"){
 			isTouchingPlayer = false;
 			PlayerTouching = null;
+		}
+		if(collision.gameObject.GetComponent<PlatformEffector2D>() != null) {
+			isTouchingPlatform = false;
+			Platform = null;
 		}
 	}
 }

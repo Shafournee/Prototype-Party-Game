@@ -8,14 +8,14 @@ public class Fire_CameraMovement : MonoBehaviour {
 	[SerializeField] GameObject[] Players;
 
 	// The camera attached to this GO
-	Camera camera;
+	new Camera camera;
 
 	// Target positions/zooms
 	Vector3 TargetPosition;
 	float TargetZoom;
 
 	// Minimum Zoom value
-	const float MinimumZoomValue = 8;
+	const float MinimumZoomValue = 10;
 
 	// Buffer zone sizes for the X and Y edges of the camera, in unity units.
 	// Barriers where the camera should zoom out when a player is outside of it, measured as offsets from edges
@@ -60,7 +60,7 @@ public class Fire_CameraMovement : MonoBehaviour {
 		}
 		if(length != 0){
 			average /= length;
-			TargetPosition = new Vector3(average.x, cameraPos.y, cameraPos.z);
+			TargetPosition = new Vector3(average.x + 10, cameraPos.y, cameraPos.z);
 		}
 		// Get target zoom
 		if(length < 2) {

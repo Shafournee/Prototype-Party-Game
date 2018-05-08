@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] KeyCode Left = KeyCode.A;
 	[SerializeField] KeyCode Right = KeyCode.D;
 	[SerializeField] KeyCode Jump = KeyCode.Space;
+	[SerializeField] KeyCode Down = KeyCode.S;
 
 	// ------------------------------------------ Methods ------------------------------------------ //
 	//  --------- Start ---------  //
@@ -154,11 +155,11 @@ public class PlayerMovement : MonoBehaviour {
 	IEnumerator HoldingS() {
 		while(true) {
 			float time = 0;
-			while(Input.GetKey(KeyCode.S) && FloorDetector.isTouchingPlatform && time < 0.5f) {
+			while(Input.GetKey(Down) && FloorDetector.isTouchingPlatform && time < 0.5f) {
 				yield return null;
 				time += Time.deltaTime;
 			}
-			if(Input.GetKey(KeyCode.S) && FloorDetector.isTouchingPlatform) {
+			if(Input.GetKey(Down) && FloorDetector.isTouchingPlatform) {
 				Collider2D platform = FloorDetector.Platform;
 				Collider2D thisPlayer = GetComponent<Collider2D>();
 				Physics2D.IgnoreCollision(thisPlayer, platform);

@@ -50,6 +50,7 @@ public class PushyGameManager : MonoBehaviour {
 
     private void EndGame()
     {
+        //TODO MAKE THIS ACTUALLY STOP THE PENGUINS FROM MOVING
         foreach (Transform child in transform)
         {
             child.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);

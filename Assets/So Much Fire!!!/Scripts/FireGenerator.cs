@@ -18,7 +18,10 @@ public class FireGenerator : MonoBehaviour {
 	[SerializeField] float Interval;
 
 	// Speed of fireballs.
-	const float FireballSpeed = 4;
+	const float FireballSpeed = 8;
+
+	// Should we keep shooting.
+	bool Active = true;
 
 	// Use this for initialization
 	void Start () {
@@ -30,10 +33,9 @@ public class FireGenerator : MonoBehaviour {
 
 	}
 
-
 	IEnumerator GenerateFireballs() {
 		if(Delay != 0) yield return new WaitForSeconds(Delay);
-		while(true) {
+		while(Active) {
 			GameObject ball = Instantiate(FireBallPrefab);
 			GameObject location = SpawnLocations[Random.Range(0, SpawnLocations.Length)];
 			ball.transform.position = new Vector3(location.transform.position.x, location.transform.position.y);
@@ -41,4 +43,11 @@ public class FireGenerator : MonoBehaviour {
 			yield return new WaitForSeconds(Interval);
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if(collider.tag == "Player") {
+			Active = false;
+		}
+	}
+
 }

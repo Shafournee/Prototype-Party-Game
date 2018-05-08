@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour {
 	IEnumerator HoldingS() {
 		while(true) {
 			float time = 0;
-			while(Input.GetKey(Down) && FloorDetector.isTouchingPlatform && time < 0.5f) {
+			while(Input.GetKey(Down) && FloorDetector.isTouchingPlatform && time < 0.1f) {
 				yield return null;
 				time += Time.deltaTime;
 			}

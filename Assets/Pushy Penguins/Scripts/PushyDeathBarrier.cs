@@ -5,6 +5,8 @@ using UnityEngine;
 public class PushyDeathBarrier : MonoBehaviour
 {
 
+    [SerializeField] GameObject gameManager;
+
     // Use this for initialization
     void Start()
     {
@@ -23,6 +25,7 @@ public class PushyDeathBarrier : MonoBehaviour
         if (collider.tag == "Player")
         {
             //Check if players are still alive to declare a victor and score things
+            gameManager.GetComponent<PushyGameManager>().IsGameFinishedPlayerDeath(collider.gameObject);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class FirePlayerMovement : MonoBehaviour {
 	// ----------------------------------- Fields and Properties ----------------------------------- //
 	// Player Rigidbody + Other Script Components
 	Rigidbody2D rb;
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float RunningTopSpeed;
 
 	// Detectors
-	public PlayerEdgeDetector FloorDetector;
+	public FirePlayerEdgeDetector FloorDetector;
 
 	// Inputs
 	[SerializeField] KeyCode Left = KeyCode.A;

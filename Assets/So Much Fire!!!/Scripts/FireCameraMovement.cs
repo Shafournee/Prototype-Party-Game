@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire_CameraMovement : MonoBehaviour {
+public class FireCameraMovement : MonoBehaviour {
 
 	// All players in the game.
 	[SerializeField] GameObject[] Players;

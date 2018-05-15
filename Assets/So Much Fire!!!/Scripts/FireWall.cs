@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingFireWall : MonoBehaviour {
+public class FireWall : MonoBehaviour {
 
 	[SerializeField] float Delay;
 	[SerializeField] float Speed;

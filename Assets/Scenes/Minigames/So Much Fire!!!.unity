@@ -6289,7 +6289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Delay: 3
-  Speed: 5
+  Speed: 7
 --- !u!50 &1143517513
 Rigidbody2D:
   serializedVersion: 4

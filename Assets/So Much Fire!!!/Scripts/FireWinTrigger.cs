@@ -8,13 +8,13 @@ public class FireWinTrigger : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if(col.tag == "Player"){
-			col.gameObject.GetComponent<PlayerMovement>().enabled = false;
+			col.gameObject.GetComponent<FirePlayerMovement>().enabled = false;
 			WinningPlayers.Add(col.gameObject);
-			StartCoroutine(StopWhenGrounded(col.gameObject.GetComponentInChildren<PlayerEdgeDetector>()));
+			StartCoroutine(StopWhenGrounded(col.gameObject.GetComponentInChildren<FirePlayerEdgeDetector>()));
 		}
 	}
 
-	IEnumerator StopWhenGrounded(PlayerEdgeDetector floorDetector) {
+	IEnumerator StopWhenGrounded(FirePlayerEdgeDetector floorDetector) {
 		while(!floorDetector.isTouching) {
 			yield return null;
 		}

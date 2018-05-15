@@ -13,6 +13,8 @@ public class PushyPlayer : MonoBehaviour
     float speed = 5f;
     public Color color;
 
+    public bool playerCanMove = true;
+
     // Use this for initialization
     void Start()
     {
@@ -23,29 +25,37 @@ public class PushyPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(up))
+        movement();
+    }
+
+    void movement()
+    {
+        if(playerCanMove)
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, speed);
-        }
-        else if (Input.GetKey(down))
-        {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, -speed);
-        }
-        else
-        {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0f);
-        }
-        if (Input.GetKey(left))
-        {
-            rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
-        }
-        else if (Input.GetKey(right))
-        {
-            rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
-        }
-        else
-        {
-            rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);
+            if (Input.GetKey(up))
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, speed);
+            }
+            else if (Input.GetKey(down))
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -speed);
+            }
+            else
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0f);
+            }
+            if (Input.GetKey(left))
+            {
+                rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
+            }
+            else if (Input.GetKey(right))
+            {
+                rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
+            }
+            else
+            {
+                rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);
+            }
         }
     }
 }

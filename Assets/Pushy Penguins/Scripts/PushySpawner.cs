@@ -73,6 +73,8 @@ public class PushySpawner : MonoBehaviour {
 
             //Instantiate a penguin in that location
             newPenguin = Instantiate(penguin, spawningObjectLocation, transform.rotation);
+            //Attach the penguins to the game manager so I can freeze them all when the game ends
+            newPenguin.transform.parent = gameObject.transform;
             //Remove the location
             spawnLocation.RemoveAt(chooseIndex);
 

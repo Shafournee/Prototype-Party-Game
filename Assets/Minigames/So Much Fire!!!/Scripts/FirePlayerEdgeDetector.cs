@@ -18,7 +18,7 @@ public class FirePlayerEdgeDetector : MonoBehaviour {
 	public bool isTouchingPlatform { get; private set; }
 	public Collider2D Platform;
 
-	//  --------- Serialized Fields: Set in Inspector ---------  //
+	//  --------- Serialized Fields ---------  //
 
 	// The direction that this edge collider lies on.
 	public enum Direction { Top, Bottom, Left, Right }

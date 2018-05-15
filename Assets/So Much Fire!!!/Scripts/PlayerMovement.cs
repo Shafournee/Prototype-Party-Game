@@ -154,11 +154,6 @@ public class PlayerMovement : MonoBehaviour {
 	// When the player holds S for some amount of time and they're on a platform, they fall through it.
 	IEnumerator HoldingS() {
 		while(true) {
-			float time = 0;
-			while(Input.GetKey(Down) && FloorDetector.isTouchingPlatform && time < 0.1f) {
-				yield return null;
-				time += Time.deltaTime;
-			}
 			if(Input.GetKey(Down) && FloorDetector.isTouchingPlatform) {
 				Collider2D platform = FloorDetector.Platform;
 				Collider2D thisPlayer = GetComponent<Collider2D>();
@@ -168,7 +163,6 @@ public class PlayerMovement : MonoBehaviour {
 				Physics2D.IgnoreCollision(thisPlayer, platform, false);
 				Physics2D.IgnoreCollision(FloorDetector.gameObject.GetComponent<BoxCollider2D>(), platform, false);
 			}
-			time = 0;
 			yield return null;
 		}
 	}

@@ -4,4 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Board/Board.unity
+    guid: 2e0dcc998e4e8e6419db1fabc6c77534
+  - enabled: 1
+    path: Assets/Minigames/So Much Fire!!!/So Much Fire!!!.unity
+    guid: 2303381884c75e24381da34ab748a4a3
+  - enabled: 1
+    path: Assets/Minigames/Pushy Penguins/Pushy Penguins.unity
+    guid: 3b98e3b91d4f16e4294b313ef781297a
+  m_configObjects: {}

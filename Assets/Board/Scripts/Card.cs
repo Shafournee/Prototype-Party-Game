@@ -36,6 +36,7 @@ public class Card {
 	}
 
 
+    // TODO: Make this functionality through scriptable objects
 	// Static list of every kind of card in the game.
 	public static Dictionary<string, Card> AllCards = new Dictionary<string, Card>(){
 		// Move 5 card
@@ -50,13 +51,13 @@ public class Card {
 
 }
 
-
+// TODO: Try to make this function through a scriptable object?
 // Dictionary containing all the possible card effects.
 public static class AllCardEffects {
 	// Basic movement effect.
 	public static void BasicMove(Card card, PlayerInformation user) {
 		// move the player
-
+        
 
 	}
 

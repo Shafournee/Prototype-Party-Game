@@ -13,6 +13,9 @@ public class PlayerInformation {
 	// The cards that the player currently has in their hand.
 	public List<Card> Hand { get; private set; }
 
+    // For setting player color
+    public Color color;
+
 
 
 	// ------------------------------------------ Methods ------------------------------------------ //
